@@ -9,8 +9,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.capcafe.dto.Cafe;
 import com.cg.capcafe.dto.Employee;
 import com.cg.capcafe.dto.Review;
+import com.cg.capcafe.repository.CafeRepository;
 import com.cg.capcafe.repository.EmployeeReopository;
 import com.cg.capcafe.repository.ReviewRepository;
 
@@ -24,32 +26,42 @@ public class ReviewServiceImpl implements IReviewService{
 
 	@Autowired
 	EmployeeReopository employeeRepo;
+	
+	@Autowired
+	CafeRepository cafeRepository;
+	
+	
 	@Override
 	public Review addReview(Review review) {
-		//review.setEmployee(104);
-//		System.err.println(review);
-//		Employee employee=employeeRepo.findById(review.getEmployee()).get();
-//		System.err.println(employee);
-//		Set<Review> reviewsSet=employee.getPastReviews();
-//		reviewsSet.add(review);
-//		employee.setPastReviews(reviewsSet);
 //		System.out.println(review);
-//		System.err.println(employee);
-//		 employeeRepo.save(employee);
-		reviewRepository.save(review);
-		 return review;
+//		 Cafe cafe = cafeRepository.findById(review.getCafeId()).get();
+//		 cafe.getReviews().add(review);
+//		 cafeRepository.save(cafe);
+//		 System.out.println("==============");
+//		 System.out.println(employeeRepo.existsById(review.getEmployee()));
+//		 System.out.println("================");
+//		 Employee emp = employeeRepo.findById(review.getEmployee()).get();
+//		 System.out.println("==================");
+//		 emp.getPastReviews().add(review);
+//		 System.out.println("==================");
+//		 employeeRepo.save(emp);
+		 return reviewRepository.save(review);
 	}
+	
 	@Override
 	public List<Review> fetchReviewbycafeId(int cafeId) {
-		List<Review> reviewByCafe =reviewRepository.findByCafeId(cafeId);
-		System.out.println(reviewByCafe);
-		return reviewByCafe;	
+//		List<Review> reviewByCafe =reviewRepository.findByCafeId(cafeId);
+//		System.out.println(reviewByCafe);
+//		return reviewByCafe;
+		return null;
 		}
+	
 	@Override
 	public List<Review> fetchReviewbyempId(int empId) {
-		List<Review> reviewByEmployee =reviewRepository.findByEmployeeId(empId);
-		System.out.println(reviewByEmployee);
-		return reviewByEmployee;
+		//List<Review> reviewByEmployee =reviewRepository.findByEmployeeId(empId);
+		//System.out.println(reviewByEmployee);
+		//return reviewByEmployee;
+		return null;
 	}
 
 	

@@ -49,13 +49,11 @@ public class Cafe {
 	@Column(name= "avg_price")
 	private int avgPrice;
 	
-	@OneToMany(fetch = FetchType.EAGER,
-			   cascade = CascadeType.ALL)
-	@JoinColumn(name = "cafe_id")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cafe")
 	private Set<Review> reviews;
 	
 	@ManyToMany(fetch = FetchType.EAGER,
-			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE})
 	@JoinTable(name = "cafe_item", joinColumns = {@JoinColumn(name="cafe_id", referencedColumnName = "cafe_id")},
 	 inverseJoinColumns = {@JoinColumn(name = "item_id", referencedColumnName = "item_id")})
 	private Set<FoodItem> menu;

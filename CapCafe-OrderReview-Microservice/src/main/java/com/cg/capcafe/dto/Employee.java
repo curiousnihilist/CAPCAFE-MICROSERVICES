@@ -42,10 +42,7 @@ public class Employee {
 	
 	private double wallet;
 	
-	// Uni Directional
-	@OneToMany(fetch = FetchType.LAZY,
-			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinColumn(name = "review_Id")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
 	private Set<Review> pastReviews;
 	
 	//Bi Directional

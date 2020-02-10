@@ -16,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * Entity class for storing employee details.
  * @author Akash Verma
@@ -40,16 +42,14 @@ public class Employee {
 	
 	private double wallet;
 	
-	// Uni Directional
-	@OneToMany(fetch = FetchType.LAZY,
-			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinColumn(name = "review_id")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
 	private Set<Review> pastReviews;
 	
 	//Bi Directional
 	@OneToMany(fetch = FetchType.LAZY,
 			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},
 			   mappedBy = "employee")
+	@JsonIgnore
 	private Set<Order> pastOrders;
 	
 	@Column(length = 15)

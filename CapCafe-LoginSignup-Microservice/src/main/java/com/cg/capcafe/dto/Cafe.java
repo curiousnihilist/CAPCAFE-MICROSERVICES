@@ -49,9 +49,7 @@ public class Cafe {
 	@Column(name= "avg_price")
 	private int avgPrice;
 	
-	@OneToMany(fetch = FetchType.EAGER,
-			   cascade = CascadeType.ALL)
-	@JoinColumn(name = "cafe_id")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cafe", cascade = CascadeType.ALL)
 	private Set<Review> reviews;
 	
 	@ManyToMany(fetch = FetchType.EAGER,

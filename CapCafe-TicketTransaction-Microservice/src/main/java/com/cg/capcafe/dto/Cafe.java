@@ -42,7 +42,7 @@ public class Cafe {
 	
 	@OneToMany(fetch = FetchType.LAZY,
 			   cascade = CascadeType.ALL)
-	@JoinColumn(name = "cafe_id")
+	@JoinColumn(name = "review_id")
 	private List<Review> reviews;
 	
 	@OneToMany(fetch = FetchType.EAGER,

@@ -25,15 +25,31 @@ public class Review {
 	@Column(name = "review_id")
 	private int reviewId;
 	
-	@Column(name = "cafe_id")
-	private int cafeId;
+	
+	@ManyToOne(fetch = FetchType.EAGER,
+			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
+	@JoinColumn(name = "cafe_id", nullable = false)
+	private Cafe cafe;
 	
 	private int rating;
 	
-	@Column(name = "employee_id")
-	private int employeeId;
+	@ManyToOne(fetch = FetchType.EAGER,
+			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
+	@JoinColumn(name = "employee_id", nullable = false)
+	private Employee employee;
 	
 	private String review;
+
+	public Review(int reviewId, Cafe cafe, int rating, Employee employee, String review) {
+		super();
+		this.reviewId = reviewId;
+		this.cafe = cafe;
+		this.rating = rating;
+		this.employee = employee;
+		this.review = review;
+	}
+
+	public Review() {}
 
 	public int getReviewId() {
 		return reviewId;
@@ -43,12 +59,12 @@ public class Review {
 		this.reviewId = reviewId;
 	}
 
-	public int getCafeId() {
-		return cafeId;
+	public Cafe getCafe() {
+		return cafe;
 	}
 
-	public void setCafe(int cafeId) {
-		this.cafeId = cafeId;
+	public void setCafe(Cafe cafe) {
+		this.cafe = cafe;
 	}
 
 	public int getRating() {
@@ -59,12 +75,12 @@ public class Review {
 		this.rating = rating;
 	}
 
-	public int getEmployee() {
-		return employeeId;
+	public Employee getEmployee() {
+		return employee;
 	}
 
-	public void setEmployee(int employeeID) {
-		this.employeeId = employeeID;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 	public String getReview() {
@@ -75,23 +91,10 @@ public class Review {
 		this.review = review;
 	}
 
-	public Review(int reviewId, int cafeId, int rating, int employeeId, String review) {
-		super();
-		this.reviewId = reviewId;
-		this.cafeId = cafeId;
-		this.rating = rating;
-		this.employeeId = employeeId;
-		this.review = review;
-	}
-	
-	public Review() {}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + cafeId;
-		result = prime * result + employeeId;
 		result = prime * result + rating;
 		result = prime * result + ((review == null) ? 0 : review.hashCode());
 		result = prime * result + reviewId;
@@ -107,10 +110,6 @@ public class Review {
 		if (getClass() != obj.getClass())
 			return false;
 		Review other = (Review) obj;
-		if (cafeId != other.cafeId)
-			return false;
-		if (employeeId != other.employeeId)
-			return false;
 		if (rating != other.rating)
 			return false;
 		if (review == null) {
@@ -125,10 +124,10 @@ public class Review {
 
 	@Override
 	public String toString() {
-		return "Review [reviewId=" + reviewId + ", cafeId=" + cafeId + ", rating=" + rating + ", employeeId="
-				+ employeeId + ", review=" + review + "]";
+		return "Review [reviewId=" + reviewId + ", cafe=" + cafe + ", rating=" + rating + ", employee=" + employee
+				+ ", review=" + review + "]";
 	}
-
+	
 	
 	
 	

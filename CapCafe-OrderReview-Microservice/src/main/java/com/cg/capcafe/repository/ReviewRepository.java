@@ -11,9 +11,9 @@ import com.cg.capcafe.dto.Review;
 public interface ReviewRepository extends JpaRepository<Review, Integer>{
 	
 	//@Query("SELECT r FROM Review r JOIN FETCH r.cafe e WHERE e.cafeId=:cafeId")
-	List<Review> findByCafeId(int cafeId);
-	
-	
-	//@Query("SELECT r FROM Review r JOIN FETCH r.cafe e WHERE e.employeeId=:empId")
-	List<Review> findByEmployeeId(int empId);
+//	List<Review> findByCafeId(int cafeId);
+//	
+//	
+//	//@Query("SELECT r FROM Review r JOIN FETCH r.cafe e WHERE e.employeeId=:empId")
+//	List<Review> findByEmployeeId(int empId);
 }
