@@ -1,5 +1,7 @@
 package com.cg.capcafe.service;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +22,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public Employee signUp(Employee employee) {
-
+		employee.setSubscriptionDate(LocalDate.now());
 		Employee emp = empRepo.save(employee);
 		return emp;
 

@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cg</groupId>
-	<artifactId>capcafe</artifactId>
+	<artifactId>CapCafe-TicketTransaction-Microservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>CapCafe</name>
+	<name>CapCafe-TicketTransaction-Microservice</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
