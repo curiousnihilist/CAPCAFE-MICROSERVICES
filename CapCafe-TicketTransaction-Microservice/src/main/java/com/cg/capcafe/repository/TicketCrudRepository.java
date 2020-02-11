@@ -26,12 +26,21 @@ import com.cg.capcafe.dto.Ticket;
 @Repository
 public interface TicketCrudRepository extends JpaRepository<Ticket, Integer> 
 {
-	//To fetch the tickets of particular Employee 
 	@Query("SELECT t FROM Ticket t JOIN FETCH t.employee e WHERE e.empId=:empId")
 	List<Ticket> getByEmpId(int empId);
 	
-	//To fetch single ticket of a particular Employee 
-//	@Query("SELECT t FROM Ticket t JOIN FETCH t.employee e WHERE t.ticketId=:ticketId AND e.empId=:empId")
-//	Ticket getSingleTicketOfEmployee(int empId,int ticketId);
 	
+	//To fetch single ticket of a particular Employee 
+//	@Query("SELECT t FROM Ticket t WHERE t.ticketId=:ticketId  JOIN FETCH AND t.employee e WHERE e.empId=:empId")
+//	Ticket getSingleTicketOfEmployee(int empId,int ticketId); 
+	
+	
+	@Query("SELECT t FROM Ticket t")
+	List<Ticket> findAllTicket();
+ 
+
+
 }
+
+
+

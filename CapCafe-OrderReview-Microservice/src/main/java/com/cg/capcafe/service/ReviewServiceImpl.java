@@ -33,18 +33,9 @@ public class ReviewServiceImpl implements IReviewService{
 	
 	@Override
 	public Review addReview(Review review) {
-//		System.out.println(review);
-//		 Cafe cafe = cafeRepository.findById(review.getCafeId()).get();
-//		 cafe.getReviews().add(review);
-//		 cafeRepository.save(cafe);
-//		 System.out.println("==============");
-//		 System.out.println(employeeRepo.existsById(review.getEmployee()));
-//		 System.out.println("================");
-//		 Employee emp = employeeRepo.findById(review.getEmployee()).get();
-//		 System.out.println("==================");
-//		 emp.getPastReviews().add(review);
-//		 System.out.println("==================");
-//		 employeeRepo.save(emp);
+		Cafe cafe = cafeRepository.findById(review.getCafe().getCafeId()).get();
+		double rating = (cafe.getAvgRating()+review.getRating())/2;
+		cafeRepository.updateRating(rating, review.getCafe().getCafeId());
 		 return reviewRepository.save(review);
 	}
 	

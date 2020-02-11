@@ -15,8 +15,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+/**
+ * Entity class for storing raised ticket details.
+ * @author Akash Verma
+ *
+ */
 @Entity
 @Table(name = "ticket")
 public class Ticket {
@@ -28,7 +31,6 @@ public class Ticket {
 	
 	private String query;
 	
-	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER,
 			  cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
 	@JoinColumn(name = "employee_id")

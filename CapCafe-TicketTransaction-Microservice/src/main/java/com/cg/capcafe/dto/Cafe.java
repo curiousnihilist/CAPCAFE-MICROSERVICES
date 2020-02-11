@@ -1,6 +1,7 @@
 package com.cg.capcafe.dto;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,9 +12,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+/**
+ * Entity class for storing cafe details.
+ * @author Akash Verma
+ *
+ */
 @Entity
 @Table(name = "cafe")
 public class Cafe {
@@ -40,18 +51,21 @@ public class Cafe {
 	@Column(name= "avg_price")
 	private int avgPrice;
 	
-	@OneToMany(fetch = FetchType.LAZY,
-			   cascade = CascadeType.ALL)
-	@JoinColumn(name = "review_id")
-	private List<Review> reviews;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cafe", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Set<Review> reviews;
 	
-	@OneToMany(fetch = FetchType.EAGER,
-			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinColumn(name = "item_id")
+	@ManyToMany(fetch = FetchType.EAGER,
+			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE})
+	@JoinTable(name = "cafe_item", joinColumns = {@JoinColumn(name="cafe_id", referencedColumnName = "cafe_id")},
+	 inverseJoinColumns = {@JoinColumn(name = "item_id", referencedColumnName = "item_id")})
 	private List<FoodItem> menu;
 
+	
+	public Cafe() {}
+	
 	public Cafe(int cafeId, String name, String location, String owner, double account,
-			double avgRating, int avgPrice, List<Review> reviews, List<FoodItem> menu) {
+			double avgRating, int avgPrice, Set<Review> reviews, List<FoodItem> menu) {
 		super();
 		this.cafeId = cafeId;
 		this.name = name;
@@ -63,8 +77,6 @@ public class Cafe {
 		this.reviews = reviews;
 		this.menu = menu;
 	}
-	
-	public Cafe() {}
 
 	public int getCafeId() {
 		return cafeId;
@@ -98,7 +110,6 @@ public class Cafe {
 		this.owner = owner;
 	}
 
-	
 	public double getAccount() {
 		return account;
 	}
@@ -123,11 +134,11 @@ public class Cafe {
 		this.avgPrice = avgPrice;
 	}
 
-	public List<Review> getReviews() {
+	public Set<Review> getReviews() {
 		return reviews;
 	}
 
-	public void setReviews(List<Review> reviews) {
+	public void setReviews(Set<Review> reviews) {
 		this.reviews = reviews;
 	}
 
@@ -139,6 +150,7 @@ public class Cafe {
 		this.menu = menu;
 	}
 
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -185,6 +197,8 @@ public class Cafe {
 				+ ", account=" + account + ", avgRating=" + avgRating + ", avgPrice="
 				+ avgPrice + ", reviews=" + reviews + ", menu=" + menu + "]";
 	}
+	
+	
 	
 	
 }

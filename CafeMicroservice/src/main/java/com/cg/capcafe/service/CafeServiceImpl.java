@@ -1,6 +1,7 @@
 package com.cg.capcafe.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.cg.capcafe.dto.Cafe;
 import com.cg.capcafe.dto.FoodItem;
 import com.cg.capcafe.exception.CafeNotFoundException;
+import com.cg.capcafe.exception.FoodItemNotFoundException;
 import com.cg.capcafe.repo.CafeRepository;
 
 /**
@@ -38,7 +40,7 @@ public class CafeServiceImpl implements CafeService{
 
 	@Override
 	public Cafe addCafe(Cafe cafe) {
-		Set<FoodItem> menu = cafe.getMenu();
+		List<FoodItem> menu = cafe.getMenu();
 		Iterator<FoodItem> menuItr = menu.iterator();
 		int sum = 0;
 		while(menuItr.hasNext()) {
@@ -51,9 +53,8 @@ public class CafeServiceImpl implements CafeService{
 
 	@Override
 	public Cafe updateCafe(Cafe cafe) {
-		System.out.println("============");
-		System.out.println(cafe.getCafeId());
-		cafeRepo.deleteById(cafe.getCafeId());
+		
+		//cafeRepo.deleteById(cafe.getCafeId());
 		
 		System.out.println(cafeRepo.existsById(cafe.getCafeId()));
 		return cafeRepo.save(cafe);
@@ -116,6 +117,31 @@ public class CafeServiceImpl implements CafeService{
 		if(cafes.isEmpty())
 			throw new CafeNotFoundException("No cafe available!");
 		return cafes;
+	}
+
+	@Override
+	public List<Cafe> searchFood(String name, String location) throws CafeNotFoundException {
+		name = "%"+name+"%";
+		List<Cafe> cafes = cafeRepo.getFood(name, location);
+		if(cafes.isEmpty())
+			throw new CafeNotFoundException("No cafe available!");
+		return cafes;
+	}
+
+	@Override
+	public List<FoodItem> searchDish(int cafeId, String dish) throws FoodItemNotFoundException {
+		CharSequence seq = dish;
+		Cafe cafe = cafeRepo.findById(cafeId).get();
+		List<FoodItem> searchResult = new ArrayList<>();
+		
+		for(FoodItem item:cafe.getMenu()) {
+			if(item.getName().contains(seq))
+				searchResult.add(item);
+		}
+		
+		if(searchResult.isEmpty())
+			throw new FoodItemNotFoundException("No "+dish +" available in the cafe!");
+		return searchResult;
 	}
 
 }

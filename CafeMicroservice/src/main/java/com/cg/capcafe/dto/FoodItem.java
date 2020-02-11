@@ -49,10 +49,10 @@ public class FoodItem {
 	private Set<Order> orders = new HashSet<Order>();
 	
 	@JsonIgnore
-	@ManyToMany(mappedBy = "menu")
-	private Set<Cafe> cafe;
+	@ManyToMany(mappedBy = "menu", cascade =CascadeType.ALL )
+	private List<Cafe> cafe;
 	
-	public FoodItem(int itemId, ItemType itemType, String name, double price, Set<Order> orders, Set<Cafe> cafe) {
+	public FoodItem(int itemId, ItemType itemType, String name, double price, Set<Order> orders, List<Cafe> cafe) {
 		super();
 		this.itemId = itemId;
 		this.itemType = itemType;
@@ -104,11 +104,11 @@ public class FoodItem {
 		this.orders = orders;
 	}
 
-	public Set<Cafe> getCafe() {
+	public List<Cafe> getCafe() {
 		return cafe;
 	}
 
-	public void setCafe(Set<Cafe> cafe) {
+	public void setCafe(List<Cafe> cafe) {
 		this.cafe = cafe;
 	}
 

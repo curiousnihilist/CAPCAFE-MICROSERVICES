@@ -56,13 +56,13 @@ public class Cafe {
 			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE})
 	@JoinTable(name = "cafe_item", joinColumns = {@JoinColumn(name="cafe_id", referencedColumnName = "cafe_id")},
 	 inverseJoinColumns = {@JoinColumn(name = "item_id", referencedColumnName = "item_id")})
-	private Set<FoodItem> menu;
+	private List<FoodItem> menu;
 
 	
 	public Cafe() {}
 	
 	public Cafe(int cafeId, String name, String location, String owner, double account,
-			double avgRating, int avgPrice, Set<Review> reviews, Set<FoodItem> menu) {
+			double avgRating, int avgPrice, Set<Review> reviews, List<FoodItem> menu) {
 		super();
 		this.cafeId = cafeId;
 		this.name = name;
@@ -139,11 +139,11 @@ public class Cafe {
 		this.reviews = reviews;
 	}
 
-	public Set<FoodItem> getMenu() {
+	public List<FoodItem> getMenu() {
 		return menu;
 	}
 
-	public void setMenu(Set<FoodItem> menu) {
+	public void setMenu(List<FoodItem> menu) {
 		this.menu = menu;
 	}
 

@@ -27,7 +27,7 @@ public class Review {
 	
 	
 	@ManyToOne(fetch = FetchType.EAGER,
-			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
+			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "cafe_id", nullable = false)
 	private Cafe cafe;
 	

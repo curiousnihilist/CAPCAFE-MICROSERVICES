@@ -4,7 +4,9 @@ import java.util.List;
 
 
 import com.cg.capcafe.dto.Cafe;
+import com.cg.capcafe.dto.FoodItem;
 import com.cg.capcafe.exception.CafeNotFoundException;
+import com.cg.capcafe.exception.FoodItemNotFoundException;
 
 /**
  * Cafe Service Interface which contains all abstract service methods for cafe's.
@@ -91,6 +93,24 @@ public interface CafeService {
 	 * @throws CafeNotFoundException
 	 */
 	List<Cafe> searchByMenu(String foodItem) throws CafeNotFoundException;
+	
+	/**
+	 * Method for searching cafe by location and cafe name
+	 * @param name
+	 * @param location
+	 * @return List of cafe
+	 * @throws CafeNotFoundException
+	 */
+	List<Cafe> searchFood(String name,String location) throws CafeNotFoundException;
+	
+	/**
+	 * Method for searching dish from cafe menu
+	 * @param cafeId
+	 * @param dish
+	 * @return
+	 * @throws FoodItemNotFoundException
+	 */
+	List<FoodItem> searchDish(int cafeId, String dish) throws FoodItemNotFoundException;
 	
 
 }

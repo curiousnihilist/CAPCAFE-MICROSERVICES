@@ -95,7 +95,7 @@ public class FrontController {
 	
 	@GetMapping(value = "/get-by-location")
 	public List<Cafe> getCafeByLocation(@RequestParam String location) throws CafeNotFoundException{
-		return Arrays.asList(template.getForObject(cafeDetailsMicroservice+"/get-by-location"+"?name="+location, Cafe[].class));
+		return Arrays.asList(template.getForObject(cafeDetailsMicroservice+"/get-by-location"+"?location="+location, Cafe[].class));
 	}
 	
 	@GetMapping(value = "/get-by-dish")

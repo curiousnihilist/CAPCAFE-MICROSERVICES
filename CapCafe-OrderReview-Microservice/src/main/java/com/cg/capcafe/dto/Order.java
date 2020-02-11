@@ -37,18 +37,17 @@ public class Order {
 	private double totalAmount;
 	
 	@ManyToOne(fetch = FetchType.LAZY,
-			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}
+			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH}
 			   )
 	@JoinColumn(name = "cafe_id")
 	private Cafe cafe;
 	
 	@ManyToOne(fetch = FetchType.LAZY,
-			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
 	@JoinColumn(name = "employee_id")
 	private Employee employee;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,
-													CascadeType.DETACH,
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH,
 													CascadeType.MERGE,
 													CascadeType.REFRESH})
 	@JoinTable(name = "order_item", joinColumns = {@JoinColumn(name="order_id", referencedColumnName = "order_id")},

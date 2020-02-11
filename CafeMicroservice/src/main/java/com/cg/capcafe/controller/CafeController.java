@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.capcafe.dto.Cafe;
+import com.cg.capcafe.dto.FoodItem;
 import com.cg.capcafe.exception.CafeNotFoundException;
+import com.cg.capcafe.exception.FoodItemNotFoundException;
 import com.cg.capcafe.service.CafeService;
 import com.cg.capcafe.service.MenuService;
 
@@ -140,6 +142,16 @@ public class CafeController {
 	@GetMapping(value = "/get-by-price-range")
 	public List<Cafe> getCafeByPriceRange(@RequestParam int min, @RequestParam int max) throws CafeNotFoundException{
 		return cafeService.searchByPricing(min, max);
+	}
+	
+	@GetMapping(value = "/get-food")
+	public List<Cafe> getFood(@RequestParam String name, @RequestParam String location) throws CafeNotFoundException{
+		return cafeService.searchFood(name, location);
+	}
+	
+	@GetMapping(value = "/get-dish-from-cafe")
+	public List<FoodItem> getDishFromCafe(@RequestParam int cafeId, @RequestParam String dish) throws FoodItemNotFoundException{
+		return cafeService.searchDish(cafeId, dish);
 	}
 	
 

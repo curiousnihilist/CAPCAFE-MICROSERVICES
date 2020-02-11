@@ -3,6 +3,7 @@ package com.cg.capcafe.dto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,8 +14,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+/**
+ * Entity class for storing employee details.
+ * @author Akash Verma
+ *
+ */
 @Entity
 @Table(name = "employee")
 public class Employee {
@@ -34,17 +42,16 @@ public class Employee {
 	
 	private double wallet;
 	
-	// Uni Directional
-	@OneToMany(fetch = FetchType.LAZY,
-			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinColumn(name = "review_Id")
-	private List<Review> pastReviews;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
+	@JsonIgnore
+	private Set<Review> pastReviews;
 	
 	//Bi Directional
 	@OneToMany(fetch = FetchType.LAZY,
 			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},
 			   mappedBy = "employee")
-	private List<Order> pastOrders;
+	@JsonIgnore
+	private Set<Order> pastOrders;
 	
 	@Column(length = 15)
 	private String name;
@@ -59,13 +66,12 @@ public class Employee {
 			   cascade = CascadeType.ALL,
 			   mappedBy = "employee")
 	@Column(name = "tickets_raised")
-	private List<Ticket> ticketsRaised;
+	private Set<Ticket> ticketsRaised;
 
+	public Employee() {}
 	
-	
-	public Employee(int empId, int capgeminiId, String email, String password, double wallet, List<Review> pastReviews,
-			List<Order> pastOrders, String name, String gender, LocalDate subscriptionDate,
-			List<Ticket> ticketsRaised) {
+	public Employee(int empId, int capgeminiId, String email, String password, double wallet, Set<Review> pastReviews,
+			Set<Order> pastOrders, String name, String gender, LocalDate subscriptionDate, Set<Ticket> ticketsRaised) {
 		super();
 		this.empId = empId;
 		this.capgeminiId = capgeminiId;
@@ -79,16 +85,6 @@ public class Employee {
 		this.subscriptionDate = subscriptionDate;
 		this.ticketsRaised = ticketsRaised;
 	}
-
-	public List<Ticket> getTicketsRaised() {
-		return ticketsRaised;
-	}
-
-	public void setTicketsRaised(List<Ticket> ticketsRaised) {
-		this.ticketsRaised = ticketsRaised;
-	}
-
-	public Employee() {}
 
 	public int getEmpId() {
 		return empId;
@@ -130,19 +126,19 @@ public class Employee {
 		this.wallet = wallet;
 	}
 
-	public List<Review> getPastReviews() {
+	public Set<Review> getPastReviews() {
 		return pastReviews;
 	}
 
-	public void setPastReviews(List<Review> pastReviews) {
+	public void setPastReviews(Set<Review> pastReviews) {
 		this.pastReviews = pastReviews;
 	}
 
-	public List<Order> getPastOrders() {
+	public Set<Order> getPastOrders() {
 		return pastOrders;
 	}
 
-	public void setPastOrders(List<Order> pastOrders) {
+	public void setPastOrders(Set<Order> pastOrders) {
 		this.pastOrders = pastOrders;
 	}
 
@@ -170,6 +166,14 @@ public class Employee {
 		this.subscriptionDate = subscriptionDate;
 	}
 
+	public Set<Ticket> getTicketsRaised() {
+		return ticketsRaised;
+	}
+
+	public void setTicketsRaised(Set<Ticket> ticketsRaised) {
+		this.ticketsRaised = ticketsRaised;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -179,13 +183,6 @@ public class Employee {
 		result = prime * result + empId;
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((pastOrders == null) ? 0 : pastOrders.hashCode());
-		result = prime * result + ((pastReviews == null) ? 0 : pastReviews.hashCode());
-		result = prime * result + ((subscriptionDate == null) ? 0 : subscriptionDate.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(wallet);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -217,28 +214,6 @@ public class Employee {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (pastOrders == null) {
-			if (other.pastOrders != null)
-				return false;
-		} else if (!pastOrders.equals(other.pastOrders))
-			return false;
-		if (pastReviews == null) {
-			if (other.pastReviews != null)
-				return false;
-		} else if (!pastReviews.equals(other.pastReviews))
-			return false;
-		if (subscriptionDate == null) {
-			if (other.subscriptionDate != null)
-				return false;
-		} else if (!subscriptionDate.equals(other.subscriptionDate))
-			return false;
-		if (Double.doubleToLongBits(wallet) != Double.doubleToLongBits(other.wallet))
-			return false;
 		return true;
 	}
 
@@ -246,11 +221,10 @@ public class Employee {
 	public String toString() {
 		return "Employee [empId=" + empId + ", capgeminiId=" + capgeminiId + ", email=" + email + ", password="
 				+ password + ", wallet=" + wallet + ", pastReviews=" + pastReviews + ", pastOrders=" + pastOrders
-				+ ", name=" + name + ", gender=" + gender + ", subscriptionDate=" + subscriptionDate + "]";
+				+ ", name=" + name + ", gender=" + gender + ", subscriptionDate=" + subscriptionDate
+				+ ", ticketsRaised=" + ticketsRaised + "]";
 	}
-	
-	
-	
+
 	
 	
 

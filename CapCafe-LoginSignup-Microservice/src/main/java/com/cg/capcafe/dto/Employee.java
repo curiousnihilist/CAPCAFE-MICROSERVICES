@@ -43,6 +43,7 @@ public class Employee {
 	private double wallet;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<Review> pastReviews;
 	
 	//Bi Directional

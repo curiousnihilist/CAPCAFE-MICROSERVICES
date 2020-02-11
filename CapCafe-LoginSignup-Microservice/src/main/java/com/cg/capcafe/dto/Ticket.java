@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Entity class for storing raised ticket details.
  * @author Akash Verma
@@ -32,8 +34,9 @@ public class Ticket {
 	private String query;
 	
 	@ManyToOne(fetch = FetchType.EAGER,
-			  cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+			  cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
 	@JoinColumn(name = "employee_id")
+	@JsonIgnore
 	private Employee employee;
 	
 	private String response;
