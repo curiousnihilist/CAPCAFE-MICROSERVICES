@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.cg.capcafe.dto.Cafe;
 import com.cg.capcafe.dto.FoodItem;
+import com.cg.capcafe.dto.Order;
 import com.cg.capcafe.exception.CafeNotFoundException;
 import com.cg.capcafe.exception.FoodItemNotFoundException;
 
@@ -111,6 +112,8 @@ public interface CafeService {
 	 * @throws FoodItemNotFoundException
 	 */
 	List<FoodItem> searchDish(int cafeId, String dish) throws FoodItemNotFoundException;
+
+	List<Order> fetchOrderByEmployeeId(int empId);
 	
 
 }

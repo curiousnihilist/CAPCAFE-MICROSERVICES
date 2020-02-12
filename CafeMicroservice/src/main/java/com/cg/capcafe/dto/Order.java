@@ -19,6 +19,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Entity class for storing Order details.
  * @author Akash Verma
@@ -40,11 +42,13 @@ public class Order {
 			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}
 			   )
 	@JoinColumn(name = "cafe_id")
+	@JsonIgnore
 	private Cafe cafe;
 	
 	@ManyToOne(fetch = FetchType.LAZY,
 			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumn(name = "employee_id")
+	@JsonIgnore
 	private Employee employee;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,

@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.capcafe.dto.Employee;
@@ -30,13 +32,13 @@ public class CartController {
 	@Autowired
 	IReviewService reviewService;
 	
-	//localhost:9999/getAllOrders/101
+	//localhost:8882/getAllOrders/101
 	@GetMapping(value="/getAllOrders/{empId}",produces= "application/json")
 	List<Order> fetchOrderByEmployeeId(@PathVariable("empId") int empId) {
 		return cartService.fetchOrderByEmployeeId(empId);
 	}	
 
-	//localhost:9999/addReview
+	//localhost:8882/addReview
 	@PostMapping(value="/addNewOrder",consumes="application/json",produces="application/json")
 	public Order addNewOrder(@RequestBody Order order) {
 		return cartService.addNewOrder(order);
@@ -49,7 +51,16 @@ public class CartController {
 		return reviewService.addReview(review);
 		
 	}
+	
+	@GetMapping(value = "get-review-by-cafeid/{id}")
+	public List<Review> getReviews(@PathVariable("id") int id){
+		return reviewService.fetchReviewbycafeId(id);
+	}
 
+	@GetMapping(value = "add-money")
+	public double addMoney(@RequestParam("money") double money, @RequestParam("id") int empId) {
+		return cartService.addMoney(empId, money);
+	}
 	
 
 

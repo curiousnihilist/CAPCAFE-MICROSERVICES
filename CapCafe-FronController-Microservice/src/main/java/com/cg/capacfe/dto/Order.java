@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-;
+
 
 /**
  * Entity class for storing Order details.
@@ -13,7 +13,6 @@ import java.util.Set;
  */
 
 public class Order {
-	
 	
 	private int orderId;
 	

@@ -21,20 +21,21 @@ import com.cg.capacfe.dto.Cafe;
 import com.cg.capacfe.dto.Employee;
 import com.cg.capacfe.dto.FoodItem;
 import com.cg.capacfe.dto.Login;
-
+import com.cg.capacfe.dto.Order;
+import com.cg.capacfe.dto.Review;
 import com.cg.capcafe.exception.CafeNotFoundException;
 import com.cg.capcafe.exception.FoodItemNotFoundException;
 
 @RestController
 @RequestMapping(value = "/front")
-@CrossOrigin
-(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 public class FrontController {
 	
 	final String serverIp="localhost";
 	final String loginSignupMicroservice ="http://" + serverIp + ":8881/capcafe";
 	final String cafeDetailsMicroservice="http://" + serverIp + ":8880/cafe";
 	final String cafeMenuMicroservice="http://" + serverIp + ":8880/menu";
+	final String cafeOrderReviewMicroservice="http://"+ serverIp + ":8882/order";
 	//final String userMicroserviceUrl="http://" + serverIp + ":8883/users";
 	
 	@Autowired
@@ -138,6 +139,24 @@ public class FrontController {
 	@GetMapping(value = "/get-all-dishes")
 	public List<FoodItem> getAllDishes() throws FoodItemNotFoundException{
 		return Arrays.asList(template.getForObject(cafeMenuMicroservice+"/get-all-dishes", FoodItem[].class));
+	}
+	
+	//Supriya
+	@PostMapping(value="/addNewOrder",consumes="application/json",produces="application/json")
+	public Order addNewOrder(@RequestBody Order order) {
+		return template.postForObject(cafeOrderReviewMicroservice+"/addNewOrder", order, Order.class);
+		
+	}
+
+	@GetMapping(value="/getAllOrders/{empId}",produces= "application/json")
+	List<Order> fetchOrderByEmployeeId(@PathVariable("empId") int empId) {
+		return Arrays.asList(template.getForObject(cafeOrderReviewMicroservice+"/getAllOrders/"+empId, Order[].class));
+	}
+	
+	@PostMapping(value="/addReview")
+	public Review addReview(@RequestBody Review review) {
+		return template.postForObject(cafeOrderReviewMicroservice+"/addReview", review, Review.class);
+		
 	}
 
 }

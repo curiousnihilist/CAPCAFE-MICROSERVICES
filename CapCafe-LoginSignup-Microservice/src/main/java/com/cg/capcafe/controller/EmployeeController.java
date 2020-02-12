@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.capcafe.dto.Admin;
@@ -44,6 +45,11 @@ public class EmployeeController {
 		System.out.println("jhgjghghg");
 		System.out.println(login.getCapgeminiId());
 		return service.adminLogin(login.getCapgeminiId(), login.getPassword());
+	}
+	
+	@GetMapping(value = "/get-emp-by-id")
+	public Employee getEmpById(@RequestParam("id") int empId) {
+		return service.getEmpById(empId);
 	}
 	
 

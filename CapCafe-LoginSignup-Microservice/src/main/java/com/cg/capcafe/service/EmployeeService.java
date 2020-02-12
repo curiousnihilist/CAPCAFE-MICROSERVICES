@@ -10,5 +10,7 @@ public interface EmployeeService {
    public 	Employee login(int id, String password);
    
     public Admin adminLogin(int id,String password);
+    
+    public Employee getEmpById(int empId);
 
 }

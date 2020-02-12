@@ -144,6 +144,7 @@ public class TicketController
 	@PostMapping(value="/addTransaction")
 	public Transaction addTransaction(Transaction transaction) throws TransactionNotFoundException
 	{
+		//System.out.println(transaction.getOrder().getOrderId());
 		System.out.println("payment");
 		return transactionService.addTransaction(transaction);	
 		

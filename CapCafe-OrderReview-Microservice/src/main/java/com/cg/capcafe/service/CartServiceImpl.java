@@ -1,5 +1,6 @@
 package com.cg.capcafe.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -32,15 +33,7 @@ public class CartServiceImpl implements ICartService{
 	@Override
 	public List<Order> fetchOrderByEmployeeId(int empId) {
 		List<Order> orders=orderRepository.getByEmpId(empId);
-		System.out.println(orders);
-		
 		return orders;
-
-		//List<Order> orders =emp.getPastOrders();
-		//System.out.println(emp.getPastOrders());
-		//return orders;
-		//Employee emp=employeeReopository.findById(employee.getEmpId()).get();
-		//List<Order> order=emp.getPastOrders();
 		
 	}
 
@@ -53,6 +46,11 @@ public class CartServiceImpl implements ICartService{
 
 	@Override
 	public Order addNewOrder(Order order) {
+		double wallet = order.getEmployee().getWallet() - order.getTotalAmount();
+		double account = order.getCafe().getAccount() + order.getTotalAmount();
+		employeeReopository.deductWallet(wallet, order.getEmployee().getEmpId());
+		caferepository.updateCafeAccount(account, order.getCafe().getCafeId());
+		order.setTimestamp(LocalDateTime.now());
 		return orderRepository.save(order);
 	}
 
@@ -69,13 +67,14 @@ public class CartServiceImpl implements ICartService{
 	}
 
 
-//	@Override
-//	public List<Order> getOrdersByLocation(String location) {
-//		List<Order> orders=orderRepository.getByLocation(location);
-//		System.out.println(orders);
-//		
-//		return orders;
-//	}
+	@Override
+	public double addMoney(int empid, double amount) {
+		employeeReopository.updateWallet(amount, empid);
+		return amount;
+	}
+
+
+
 
 	
 	

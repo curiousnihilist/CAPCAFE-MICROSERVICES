@@ -37,6 +37,8 @@ public interface TicketCrudService
 	
 	//public String raised(int empId,String query);
 	
+	public List<Ticket> getTicketsByEmplId(int empId) throws TicketNotFoundException;
+	
 	 
 	
 

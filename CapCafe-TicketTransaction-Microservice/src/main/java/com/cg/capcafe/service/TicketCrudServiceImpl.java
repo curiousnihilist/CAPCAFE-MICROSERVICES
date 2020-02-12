@@ -10,6 +10,7 @@ import java.util.InputMismatchException;
  * */
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -172,6 +173,14 @@ public class TicketCrudServiceImpl implements TicketCrudService
 	{
 		Ticket ticket = ticketRepository.getOne(ticketId);
 		return ticket;
+	}
+
+	@Override
+	public List<Ticket> getTicketsByEmplId(int empId) throws TicketNotFoundException {
+		List<Ticket> tickets = ticketRepository.getByEmpId(empId);
+		if(tickets.isEmpty())
+			throw new TicketNotFoundException("No tickets found!");
+		return tickets;
 	}
 
 //	@Override

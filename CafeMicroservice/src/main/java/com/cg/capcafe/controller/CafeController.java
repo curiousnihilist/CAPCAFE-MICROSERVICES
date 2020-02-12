@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.capcafe.dto.Cafe;
 import com.cg.capcafe.dto.FoodItem;
+import com.cg.capcafe.dto.Order;
 import com.cg.capcafe.exception.CafeNotFoundException;
 import com.cg.capcafe.exception.FoodItemNotFoundException;
 import com.cg.capcafe.service.CafeService;
@@ -153,6 +155,11 @@ public class CafeController {
 	public List<FoodItem> getDishFromCafe(@RequestParam int cafeId, @RequestParam String dish) throws FoodItemNotFoundException{
 		return cafeService.searchDish(cafeId, dish);
 	}
+	
+	@GetMapping(value="/getAllOrders/{empId}",produces= "application/json")
+	List<Order> fetchOrderByEmployeeId(@PathVariable("empId") int empId) {
+		return cafeService.fetchOrderByEmployeeId(empId);
+	}	
 	
 
 }

@@ -3,6 +3,7 @@ package com.cg.capcafe.service;
 import java.util.List;
 import java.util.Set;
 
+import com.cg.capcafe.dto.Employee;
 //import ;
 import com.cg.capcafe.dto.Order;
 
@@ -23,7 +24,9 @@ public interface ICartService {
 	Order getById(int orderId);
 	
 //getOrderByLocation
-	List<Order> getOrdersByLocation(String location); 
+	List<Order> getOrdersByLocation(String location);
+	
+	double addMoney(int empid, double amount);
 
 
 }

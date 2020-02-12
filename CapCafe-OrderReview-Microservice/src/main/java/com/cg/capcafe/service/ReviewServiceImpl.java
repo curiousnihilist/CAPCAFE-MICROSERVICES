@@ -41,10 +41,8 @@ public class ReviewServiceImpl implements IReviewService{
 	
 	@Override
 	public List<Review> fetchReviewbycafeId(int cafeId) {
-//		List<Review> reviewByCafe =reviewRepository.findByCafeId(cafeId);
-//		System.out.println(reviewByCafe);
-//		return reviewByCafe;
-		return null;
+		List<Review> reviewByCafe =reviewRepository.findByCafeId(cafeId);
+		return reviewByCafe;
 		}
 	
 	@Override

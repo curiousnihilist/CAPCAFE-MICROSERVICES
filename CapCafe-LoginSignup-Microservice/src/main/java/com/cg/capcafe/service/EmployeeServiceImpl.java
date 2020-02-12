@@ -71,4 +71,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 	}
 
+	@Override
+	public Employee getEmpById(int empId) {
+		Employee emp = empRepo.findById(empId).get();	
+		return emp;
+	}
+
 }

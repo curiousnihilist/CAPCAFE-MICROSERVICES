@@ -14,9 +14,11 @@ import org.springframework.stereotype.Service;
 
 import com.cg.capcafe.dto.Cafe;
 import com.cg.capcafe.dto.FoodItem;
+import com.cg.capcafe.dto.Order;
 import com.cg.capcafe.exception.CafeNotFoundException;
 import com.cg.capcafe.exception.FoodItemNotFoundException;
 import com.cg.capcafe.repo.CafeRepository;
+import com.cg.capcafe.repo.OrderRepository;
 
 /**
  * Implememtation for CafeService interface. It contains business logics for Cafe service.
@@ -29,6 +31,9 @@ public class CafeServiceImpl implements CafeService{
 
 	@Autowired
 	private CafeRepository cafeRepo;
+	
+	@Autowired
+	private OrderRepository orderRepo;
 	
 	@Override
 	public Cafe searchById(int cafeId) throws CafeNotFoundException {
@@ -142,6 +147,13 @@ public class CafeServiceImpl implements CafeService{
 		if(searchResult.isEmpty())
 			throw new FoodItemNotFoundException("No "+dish +" available in the cafe!");
 		return searchResult;
+	}
+	
+	@Override
+	public List<Order> fetchOrderByEmployeeId(int empId) {
+		List<Order> orders=orderRepo.getByEmpId(empId);
+		return orders;
+		
 	}
 
 }
