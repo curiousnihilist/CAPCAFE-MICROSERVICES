@@ -29,11 +29,15 @@ import com.cg.capcafe.repo.OrderRepository;
 @Transactional
 public class CafeServiceImpl implements CafeService{
 
-	@Autowired
 	private CafeRepository cafeRepo;
+	private OrderRepository orderRepo;
 	
 	@Autowired
-	private OrderRepository orderRepo;
+	public CafeServiceImpl(CafeRepository cafeRepo,OrderRepository orderRepo) {
+		this.cafeRepo = cafeRepo;
+		this.orderRepo = orderRepo;
+		
+	}
 	
 	@Override
 	public Cafe searchById(int cafeId) throws CafeNotFoundException {
