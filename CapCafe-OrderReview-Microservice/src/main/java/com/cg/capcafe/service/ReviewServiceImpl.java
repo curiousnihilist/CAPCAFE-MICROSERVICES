@@ -53,6 +53,12 @@ public class ReviewServiceImpl implements IReviewService{
 		return null;
 	}
 
+	@Override
+	public List<Review> fetchAllReviews() {
+		List<Review> reviews = reviewRepository.findAll();
+		return reviews;
+	}
+
 	
 //	@Override
 //	public Set<Review> fetchReviewbycafeId(int cafeId) {

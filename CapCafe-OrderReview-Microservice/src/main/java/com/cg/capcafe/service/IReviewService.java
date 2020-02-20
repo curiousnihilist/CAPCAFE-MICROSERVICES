@@ -12,7 +12,6 @@ public interface IReviewService {
 	 Review addReview(Review review);
 	 
 	 List<Review> fetchReviewbycafeId(int cId);
-	 
-
+	 List<Review> fetchAllReviews();
 	 List<Review> fetchReviewbyempId(int eId);
 }

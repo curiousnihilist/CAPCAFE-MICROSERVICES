@@ -39,20 +39,20 @@ public class FoodItem {
 	@Enumerated(EnumType.STRING)
 	private ItemType itemType;
 	
-	@Column(length = 20)
+	@Column(length = 50)
 	private String name;
 	
 	private double price;
 	
 	@JsonIgnore
-	@ManyToMany(mappedBy = "cart")
-	private Set<Order> orders = new HashSet<Order>();
+	@ManyToMany(mappedBy = "cart", cascade =CascadeType.ALL )
+	private List<Order> orders;
 	
 	@JsonIgnore
 	@ManyToMany(mappedBy = "menu", cascade =CascadeType.ALL )
 	private List<Cafe> cafe;
 	
-	public FoodItem(int itemId, ItemType itemType, String name, double price, Set<Order> orders, List<Cafe> cafe) {
+	public FoodItem(int itemId, ItemType itemType, String name, double price, List<Order> orders, List<Cafe> cafe) {
 		super();
 		this.itemId = itemId;
 		this.itemType = itemType;
@@ -96,11 +96,11 @@ public class FoodItem {
 		this.price = price;
 	}
 
-	public Set<Order> getOrders() {
+	public List<Order> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(Set<Order> orders) {
+	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
 

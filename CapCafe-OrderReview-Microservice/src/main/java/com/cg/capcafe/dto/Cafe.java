@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -52,6 +53,7 @@ public class Cafe {
 	private int avgPrice;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cafe")
+	@JsonBackReference
 	private Set<Review> reviews;
 	
 	@ManyToMany(fetch = FetchType.EAGER,

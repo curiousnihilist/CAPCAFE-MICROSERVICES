@@ -62,6 +62,10 @@ public class CartController {
 		return cartService.addMoney(empId, money);
 	}
 	
+	@GetMapping(value = "get-all-reviews")
+	public List<Review> getAllReviews(){
+		return reviewService.fetchAllReviews();
+	}
 
 
 	

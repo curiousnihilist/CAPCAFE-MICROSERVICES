@@ -39,8 +39,7 @@ public class Order {
 	private double totalAmount;
 	
 	@ManyToOne(fetch = FetchType.LAZY,
-			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}
-			   )
+			   cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumn(name = "cafe_id")
 	@JsonIgnore
 	private Cafe cafe;
@@ -54,14 +53,15 @@ public class Order {
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,
 													CascadeType.DETACH,
 													CascadeType.MERGE,
-													CascadeType.REFRESH})
+													CascadeType.REFRESH,
+													CascadeType.REMOVE})
 	@JoinTable(name = "order_item", joinColumns = {@JoinColumn(name="order_id", referencedColumnName = "order_id")},
 	 inverseJoinColumns = {@JoinColumn(name = "item_id", referencedColumnName = "item_id")})
-	private Set<FoodItem> cart;
+	private List<FoodItem> cart;
 	
 	private LocalDateTime timestamp;
 
-	public Order(int orderId, double totalAmount, Cafe cafe, Employee employee, Set<FoodItem> cart,
+	public Order(int orderId, double totalAmount, Cafe cafe, Employee employee, List<FoodItem> cart,
 			LocalDateTime timestamp) {
 		super();
 		this.orderId = orderId;
@@ -106,11 +106,11 @@ public class Order {
 		this.employee = employee;
 	}
 
-	public Set<FoodItem> getCart() {
+	public List<FoodItem> getCart() {
 		return cart;
 	}
 
-	public void setCart(Set<FoodItem> cart) {
+	public void setCart(List<FoodItem> cart) {
 		this.cart = cart;
 	}
 
